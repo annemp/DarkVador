@@ -24,6 +24,10 @@
 $context = Timber::get_context();
 $post = new TimberPost();
 $context['post'] = $post;
-$context['social_media_widget'] = Timber::get_widgets('social-media-widget');
-var_dump($context['social_media_widget']);
+$context['asides_blocks'] = array(
+  'left' => Timber::get_widgets('main-widgets'),
+  'right' => get_field('right_block')
+);
+$image = get_field('image_fullscreen');
+if ($image !== false && $image !== '' ) $context['image_fullscreen'] = new TimberImage($image);
 Timber::render( array( 'page-' . $post->post_name . '.twig', 'page.twig' ), $context );

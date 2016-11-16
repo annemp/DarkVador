@@ -20,8 +20,25 @@ class StarterSite extends TimberSite {
 		add_action( 'init', array( $this, 'register_post_types' ) );
 		add_action( 'init', array( $this, 'register_taxonomies' ) );
 		add_action( 'init', array( $this, 'register_sidebars' ) );
+		add_action( 'init', array( $this, 'add_scripts' ) );
 		parent::__construct();
 	}
+
+  function add_scripts() {
+
+    // enregistrement d'un nouveau script
+    wp_register_script('main_script', get_template_directory_uri() . '/scripts/main.js', array('jquery'),'1.1', true);
+
+    // appel du script dans la page
+    wp_enqueue_script('main_script');
+
+    // enregistrement d'un nouveau style
+    wp_register_style( 'main_style', get_template_directory_uri() . '/styles/main.css' );
+
+    // appel du style dans la page
+    wp_enqueue_style( 'main_style' );
+
+  }
 
 	function register_post_types() {
 		//this is where you can register custom post types
@@ -33,9 +50,9 @@ class StarterSite extends TimberSite {
 
   function register_sidebars() {
     register_sidebar(array(
-      'name' => __( 'Social Media Widget', 'social-media-widget' ),
+      'name' => __( 'Main Widgets', 'main-widgets' ),
       'id' => 'sidebar-1',
-      'description' => __( 'Widgets in this area will be shown on all posts and pages.', 'social-media-widget' ),
+      'description' => __( 'Widgets in this area will be shown on all posts and pages.', 'main-widgets' ),
       'before_widget' => '<li id="%1$s" class="widget %2$s">',
     	'after_widget'  => '</li>',
     	'before_title'  => '<h2 class="widgettitle">',
